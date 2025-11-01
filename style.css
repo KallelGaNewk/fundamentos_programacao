@@ -1,0 +1,64 @@
+/* Estilos para impressão do currículo */
+@media print {
+    body {
+        background: white !important;
+    }
+
+    .max-w-4xl {
+        max-width: 100% !important;
+    }
+
+    /* Esconder botões e elementos desnecessários na impressão */
+    button,
+    a[href*="editar"],
+    a[href*="limpar"] {
+        display: none !important;
+    }
+
+    /* Remover sombras e bordas arredondadas para impressão limpa */
+    .shadow-lg {
+        box-shadow: none !important;
+    }
+
+    .rounded-lg {
+        border-radius: 0 !important;
+    }
+
+    /* Ajustar margens para impressão */
+    .curriculo-content {
+        padding: 0 !important;
+    }
+
+    /* Garantir que o conteúdo não quebre no meio */
+    .mb-6 {
+        page-break-inside: avoid;
+    }
+}
+
+/* Animações suaves */
+input:focus,
+textarea:focus {
+    transition: all 0.3s ease;
+}
+
+/* Estilo para melhorar a aparência dos placeholders */
+input::placeholder,
+textarea::placeholder {
+    color: #9ca3af;
+    opacity: 0.7;
+}
+
+/* Efeito hover nos botões */
+button,
+a {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Estilo para as tags de habilidades na visualização */
+.bg-blue-100 {
+    transition: transform 0.2s ease;
+}
+
+.bg-blue-100:hover {
+    transform: scale(1.05);
+}
