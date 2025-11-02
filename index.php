@@ -1,13 +1,43 @@
 <?php
+session_start();
+
+// Processar formulário
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['curriculo'] = [
+        'nome' => $_POST['nome'] ?? '',
+        'email' => $_POST['email'] ?? '',
+        'telefone' => $_POST['telefone'] ?? '',
+        'endereco' => $_POST['endereco'] ?? '',
+        'cidade' => $_POST['cidade'] ?? '',
+        'estado' => $_POST['estado'] ?? '',
+        'linkedin' => $_POST['linkedin'] ?? '',
+        'portfolio' => $_POST['portfolio'] ?? '',
+        'objetivo' => $_POST['objetivo'] ?? '',
+        'experiencias' => $_POST['experiencias'] ?? [],
+        'formacoes' => $_POST['formacoes'] ?? [],
+        'habilidades' => $_POST['habilidades'] ?? []
+    ];
+}
+
+// Tenta pegar o parametro 'acao', se não existir, define como 'editar'
+$acao = $_GET['acao'] ?? 'editar';
+
+if ($acao === 'limpar'):
+    session_destroy();
+    header('Location: index.php');
+    exit;
+endif;
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="style.css">
-    <title>Gerador de Currículos</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+        <title>Gerador de Currículos</title>
 </head>
 <body class="bg-gray-50">
     <div class="min-h-screen py-8">
@@ -24,44 +54,13 @@
             </div>
 
             <?php
-                session_start();
-
-                // Processar formulário
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $_SESSION['curriculo'] = [
-                        'nome' => $_POST['nome'] ?? '',
-                        'email' => $_POST['email'] ?? '',
-                        'telefone' => $_POST['telefone'] ?? '',
-                        'endereco' => $_POST['endereco'] ?? '',
-                        'cidade' => $_POST['cidade'] ?? '',
-                        'estado' => $_POST['estado'] ?? '',
-                        'linkedin' => $_POST['linkedin'] ?? '',
-                        'portfolio' => $_POST['portfolio'] ?? '',
-                        'objetivo' => $_POST['objetivo'] ?? '',
-                        'experiencias' => $_POST['experiencias'] ?? [],
-                        'formacoes' => $_POST['formacoes'] ?? [],
-                        'habilidades' => $_POST['habilidades'] ?? []
-                    ];
-                }
-
-                // Tenta pegar o parametro 'acao', se não existir, define como 'editar'
-                $acao = $_GET['acao'] ?? 'editar';
-
                 if ($acao === 'visualizar' && isset($_SESSION['curriculo'])):
                     include 'visualizar.php';
                 else:
                     include 'editar.php';
                 endif;
-
-                if ($acao === 'limpar'):
-                    session_destroy();
-                    header('Location: index.php');
-                    exit;
-                endif;
             ?>
         </div>
     </div>
-
-    <script type="module" src="script.js"></script>
 </body>
 </html>

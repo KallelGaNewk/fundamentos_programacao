@@ -1,6 +1,6 @@
 <form method="POST" action="?acao=visualizar" class="bg-white rounded-lg shadow-lg p-6">
     <?php $curr = $_SESSION['curriculo'] ?? []; ?>
-    
+
     <!-- Dados Pessoais -->
     <div class="mb-6">
         <h2 class="text-xl font-bold text-blue-700 mb-4 border-b-2 border-blue-600 pb-2">Dados Pessoais</h2>
